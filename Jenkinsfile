@@ -27,17 +27,19 @@ pipeline {
             }
         }
 
-        
+      }
+    }
 
-        stage('Create conf file cluster') {
-            steps {
-                withAWS(region:'us-east-1', credentials:'ecr_credentials') {
-                    sh '''
+    stage('Create conf file cluster') {
+      steps {
+        withAWS(region: 'us-east-1', credentials: 'ecr_credentials') {
+          sh '''
                         aws eks --region us-east-1 update-kubeconfig --name profile
                     '''
-                }
-            }
         }
 
+      }
     }
+
+  }
 }
