@@ -11,7 +11,7 @@ pipeline {
                     sh '''
                         eksctl create cluster \
                         --name profile \
-                        --version 1.13 \
+                        --version 1.16 \
                         --nodegroup-name standard-workers \
                         --node-type t2.micro \
                         --nodes 2 \
