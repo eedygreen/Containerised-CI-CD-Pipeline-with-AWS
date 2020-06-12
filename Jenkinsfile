@@ -1,6 +1,9 @@
 pipeline {
     agent any
     stages {
+        options {
+            timeout(time: 1, unit: 'HOURS') //timeout the pipeline
+        }
 
         stage('Create kubernetes cluster') {
             steps {
