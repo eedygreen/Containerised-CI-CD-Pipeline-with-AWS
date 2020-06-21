@@ -6,7 +6,8 @@ pipeline {
             steps {
                 sh 'echo "STAGE 0: Cloning app code from SCM ..."'
                 git 'https://github.com/eedygreen/Containerised-CI-CD-Pipeline-with-AWS.git'
-            }    
+            }
+        }
             
         stage('Create kubernetes cluster') {
             steps {
