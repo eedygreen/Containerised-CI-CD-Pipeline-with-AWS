@@ -9,7 +9,7 @@ pipeline {
 
     stage('Build Docker Image') {
       steps {
-        withCredentials(bindings: [[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]) {
+        withCredentials(bindings: [[$class: 'UsernamePasswordMultiBinding', credentialsId: 'docker-hub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]) {
           sh 'docker build -t myprofile/profile .'
         }
 
@@ -18,7 +18,7 @@ pipeline {
 
     stage('Push Image To Dockerhub') {
       steps {
-        withCredentials(bindings: [[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]) {
+        withCredentials(bindings: [[$class: 'UsernamePasswordMultiBinding', credentialsId: 'docker-hub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]) {
           sh '''
                         docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
                         docker push myprofile/profile
