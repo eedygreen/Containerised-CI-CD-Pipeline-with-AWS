@@ -22,7 +22,7 @@
             "containers":[
                {
                   "name":"blue",
-                  "image":"myprofile/profile",
+                  "image":"profile/myprofile:1.0",
                   "ports":[
                      {
                         "name":"http-server",
