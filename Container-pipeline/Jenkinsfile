@@ -9,32 +9,26 @@ pipeline {
 
     stage('Build Docker Image') {
       steps {
-        withCredentials(bindings: [[$class: 'UsernamePasswordMultiBinding', credentialsId: 'docker-hub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]) {
-          sh 'docker build -t myprofile/profile .'
-        }
-
+          sh 'echo "Building Docker-Image ..."'
+          sh 'docker build -t myprofile:1.0 .'
+          sh 'docker image ls'
       }
     }
 
     stage('Push Image To Dockerhub') {
       steps {
-        withCredentials(bindings: [[$class: 'UsernamePasswordMultiBinding', credentialsId: 'docker-hub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]) {
-          sh '''
-                        docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-                        docker push myprofile/profile
-                    '''
+        withCredentials([url:"", credentials: 'docker-hub']){
+          sh 'echo "Uploading Doker-image to docker-hub"'
+          sh 'docker login'
+          sh 'docker tag myprofile:1.0 profile/myprofile:1.0'
+          sh 'docker push profile/myprofile:1.0'
         }
-
-      }
     }
 
     stage('Set current kubectl context') {
       steps {
         withAWS(region: 'us-east-1', credentials: 'aws-credentials') {
-          sh '''
-                        kubectl config use-context arn:aws:eks:us-east-1:501925613140:cluster/myprofile
-                        
-                    '''
+          sh 'kubectl config use-context arn:aws:eks:us-east-1:501925613140:cluster/profile'
         }
 
       }
@@ -43,9 +37,7 @@ pipeline {
     stage('Deploy blue container') {
       steps {
         withAWS(region: 'us-east-1', credentials: 'aws-credentials') {
-          sh '''
-                        kubectl apply -f ./blue-deployment-controller.json
-                    '''
+          sh 'kubectl apply -f ./blue-deployment-controller.json'
         }
 
       }
@@ -54,9 +46,7 @@ pipeline {
     stage('Deploy green container') {
       steps {
         withAWS(region: 'us-east-1', credentials: 'aws-credentials') {
-          sh '''
-                        kubectl apply -f ./green-deployment-controller.json
-                    '''
+          sh 'kubectl apply -f ./green-deployment-controller.json'
         }
 
       }
@@ -65,9 +55,7 @@ pipeline {
     stage('Create the service in the cluster, redirect to blue') {
       steps {
         withAWS(region: 'us-east-1', credentials: 'aws-credentials') {
-          sh '''
-                        kubectl apply -f ./blue-deployment-service.json
-                    '''
+          sh 'kubectl apply -f ./blue-deployment-service.json'
         }
 
       }
@@ -82,9 +70,7 @@ pipeline {
     stage('Create the service in the cluster, redirect to green') {
       steps {
         withAWS(region: 'us-east-1', credentials: 'aws-credentials') {
-          sh '''
-                        kubectl apply -f ./green-deployment-service.json
-                    '''
+          sh 'kubectl apply -f ./green-deployment-service.json'
         }
 
       }
