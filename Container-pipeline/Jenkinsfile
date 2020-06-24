@@ -10,9 +10,7 @@ pipeline {
     stage('Build Docker Image') {
       steps {
         withCredentials(bindings: [[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]) {
-          sh '''
-                        docker build -t myprofile/profile .
-                    '''
+          sh 'docker build -t myprofile/profile .'
         }
 
       }
