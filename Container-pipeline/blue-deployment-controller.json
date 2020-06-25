@@ -22,7 +22,7 @@
             "containers":[
                {
                   "name":"blue",
-                  "image":"profile/myprofile:1.0",
+                  "image":"eedy/profile:1.0",
                   "ports":[
                      {
                         "name":"http-server",
