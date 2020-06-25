@@ -17,7 +17,7 @@ pipeline {
 
     stage('Push Image To Dockerhub') {
       steps {
-        withCredentials([url:"", credentials: 'docker-hub']){
+        withCredentials([url: "", credentialsId: 'docker-hub']){
           sh 'echo "Uploading Doker-image to dockerhub registry"'
           sh 'docker login'
           sh 'docker tag myprofile:1.0 profile/myprofile:1.0'
