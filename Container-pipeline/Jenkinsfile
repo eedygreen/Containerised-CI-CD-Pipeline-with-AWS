@@ -10,7 +10,7 @@ pipeline {
     stage('Build Docker Image') {
       steps {
           sh 'echo "Building Docker-Image ..."'
-          sh 'docker build -t myprofile:1.0 Container-pipeline/.'
+          sh 'docker build -t myprofile:1.1 Container-pipeline/.'
           sh 'docker image ls'
       }
     }
@@ -20,7 +20,7 @@ pipeline {
         withDockerRegistry([url: "", credentialsId: 'docker-hub']){
           sh 'echo "Uploading Doker-image to dockerhub registry"'
           sh 'docker login'
-          sh 'docker tag myprofile:1.0 eedy/profile:1.0'
+          sh 'docker tag myprofile:1.1 eedy/profile:1.0'
           sh 'docker push eedy/profile:1.0'
         }
       }
