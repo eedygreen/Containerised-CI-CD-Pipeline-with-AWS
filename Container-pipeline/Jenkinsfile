@@ -20,8 +20,8 @@ pipeline {
         withDockerRegistry([url: "", credentialsId: 'docker-hub']){
           sh 'echo "Uploading Doker-image to dockerhub registry"'
           sh 'docker login'
-          sh 'docker tag myprofile:1.0 profile/myprofile:1.0'
-          sh 'docker push profile/myprofile:1.0'
+          sh 'docker tag myprofile:1.0 eedy/profile:1.0'
+          sh 'docker push eedy/profile:1.0'
         }
       }
     }
