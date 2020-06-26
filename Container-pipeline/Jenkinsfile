@@ -30,7 +30,7 @@ pipeline {
       steps {
         withAWS(region: 'us-east-1', credentials: 'aws-credentials') {
           sh 'kubectl config use-context arn:aws:eks:us-east-1:501925613140:cluster/profile'
-          sh 'kubectl set image deployment myprofile myprofile=eedy/profile:v1.0'
+          sh 'kubectl set image deployment myprofile myprofile=eedy/profile:1.0'
         }
 
       }
