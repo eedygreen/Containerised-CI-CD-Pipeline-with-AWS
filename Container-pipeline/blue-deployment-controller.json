@@ -22,7 +22,7 @@
             "containers":[
                {
                   "name":"blue",
-                  "image":"eedy/profile",
+                  "image":"https://hub.docker.com/repository/docker/eedy/profile",
                   "ports":[
                      {
                         "name":"http-server",
