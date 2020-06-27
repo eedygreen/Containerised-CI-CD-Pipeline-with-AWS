@@ -10,7 +10,7 @@ pipeline {
     stage('Build Docker Image') {
       steps {
           sh 'echo "Building Docker-Image ..."'
-          sh 'docker build -t myprofile:1.1 Container-pipeline/.'
+          sh 'docker build -t eedy/profile Container-pipeline/.'
           sh 'docker image ls'
       }
     }
@@ -20,8 +20,7 @@ pipeline {
         withDockerRegistry([url: "", credentialsId: 'docker-hub']){
           sh 'echo "Uploading Doker-image to dockerhub registry"'
           sh 'docker login'
-          sh 'docker tag myprofile:1.1 eedy/profile:1.0'
-          sh 'docker push eedy/profile:1.0'
+          sh 'docker push eedy/profile'
         }
       }
     }
@@ -29,17 +28,16 @@ pipeline {
     stage('Set current kubectl context') {
       steps {
         withAWS(region: 'us-east-1', credentials: 'aws-credentials') {
+          sh 'aws eks update-kubeconfig --name profile'
           sh 'kubectl config use-context arn:aws:eks:us-east-1:501925613140:cluster/profile'
-          sh 'kubectl set image deployment myprofile myprofile=eedy/profile:1.0'
         }
-
       }
     }
 
     stage('Deploy blue container') {
       steps {
         withAWS(region: 'us-east-1', credentials: 'aws-credentials') {
-          sh 'kubectl apply -f Container-pipeline/blue-deployment-controller.json'
+          sh 'kubectl apply -f Container-pipeline/blue-deployment-controller.json -n kube-system'
         }
 
       }
@@ -48,7 +46,7 @@ pipeline {
     stage('Deploy green container') {
       steps {
         withAWS(region: 'us-east-1', credentials: 'aws-credentials') {
-          sh 'kubectl apply -f Container-pipeline/green-deployment-controller.json'
+          sh 'kubectl apply -f Container-pipeline/green-deployment-controller.json -n kube-system'
         }
 
       }
@@ -57,13 +55,13 @@ pipeline {
     stage('Create the service in the cluster, redirect to blue') {
       steps {
         withAWS(region: 'us-east-1', credentials: 'aws-credentials') {
-          sh 'kubectl apply -f Container-pipeline/blue-deployment-service.json'
+          sh 'kubectl apply -f Container-pipeline/blue-deployment-service.json -n kube-system'
           sh 'kubectl get nodes --all-namespaces'
           sh 'kubectl get deployment'
           sh 'kubectl get pod -o wide'
-          sh 'kubectl get service/myprofile'
+          sh 'kubectl get service'
           sh 'echo "Congratulations! Deployment successful."'
-          sh 'kubectl describe deployment/myprofile'
+          sh 'kubectl describe deployment'
         }
 
       }
@@ -78,13 +76,13 @@ pipeline {
     stage('Create the service in the cluster, redirect to green') {
       steps {
         withAWS(region: 'us-east-1', credentials: 'aws-credentials') {
-          sh 'kubectl apply -f Container-pipeline/green-deployment-service.json'
+          sh 'kubectl apply -f Container-pipeline/green-deployment-service.json -n kube-system'
           sh 'kubectl get nodes --all-namespaces'
           sh 'kubectl get deployment'
           sh 'kubectl get pod -o wide'
-          sh 'kubectl get service/myprofile'
+          sh 'kubectl get service'
           sh 'echo "Congratulations! Deployment successful."'
-          sh 'kubectl describe deployment/myprofile'
+          sh 'kubectl describe deployment'
         }
 
       }
