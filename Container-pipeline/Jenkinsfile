@@ -28,7 +28,9 @@ pipeline {
     stage('Set current kubectl context') {
       steps {
         withAWS(region: 'us-east-1', credentials: 'aws-credentials') {
+          sh 'aws eks update-kubeconfig --name profile'
           sh 'kubectl config use-context arn:aws:eks:us-east-1:501925613140:cluster/profile'
+          sh 'kubectl set image deployment web-app web-app=eedy/profile'
         }
       }
     }
