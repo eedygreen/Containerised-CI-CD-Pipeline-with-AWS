@@ -58,9 +58,9 @@ pipeline {
           sh 'kubectl get nodes --all-namespaces'
           sh 'kubectl get deployment'
           sh 'kubectl get pod -o wide'
-          sh 'kubectl get service/profile'
+          sh 'kubectl get service'
           sh 'echo "Congratulations! Deployment successful."'
-          sh 'kubectl describe deployment/profile'
+          sh 'kubectl describe deployment'
         }
 
       }
@@ -79,9 +79,9 @@ pipeline {
           sh 'kubectl get nodes --all-namespaces'
           sh 'kubectl get deployment'
           sh 'kubectl get pod -o wide'
-          sh 'kubectl get service/profile'
+          sh 'kubectl get service'
           sh 'echo "Congratulations! Deployment successful."'
-          sh 'kubectl describe deployment/profile'
+          sh 'kubectl describe deployment'
         }
 
       }
