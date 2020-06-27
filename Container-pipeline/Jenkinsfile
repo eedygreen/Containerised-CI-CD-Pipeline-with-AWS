@@ -36,7 +36,7 @@ pipeline {
     stage('Deploy blue container') {
       steps {
         withAWS(region: 'us-east-1', credentials: 'aws-credentials') {
-          sh 'kubectl apply -f Container-pipeline/blue-deployment-controller.json'
+          sh 'kubectl apply -f Container-pipeline/blue-deployment-controller.json -n kube-system'
         }
 
       }
@@ -45,7 +45,7 @@ pipeline {
     stage('Deploy green container') {
       steps {
         withAWS(region: 'us-east-1', credentials: 'aws-credentials') {
-          sh 'kubectl apply -f Container-pipeline/green-deployment-controller.json'
+          sh 'kubectl apply -f Container-pipeline/green-deployment-controller.json -n kube-system'
         }
 
       }
@@ -54,7 +54,7 @@ pipeline {
     stage('Create the service in the cluster, redirect to blue') {
       steps {
         withAWS(region: 'us-east-1', credentials: 'aws-credentials') {
-          sh 'kubectl apply -f Container-pipeline/blue-deployment-service.json'
+          sh 'kubectl apply -f Container-pipeline/blue-deployment-service.json -n kube-system'
           sh 'kubectl get nodes --all-namespaces'
           sh 'kubectl get deployment'
           sh 'kubectl get pod -o wide'
@@ -75,7 +75,7 @@ pipeline {
     stage('Create the service in the cluster, redirect to green') {
       steps {
         withAWS(region: 'us-east-1', credentials: 'aws-credentials') {
-          sh 'kubectl apply -f Container-pipeline/green-deployment-service.json'
+          sh 'kubectl apply -f Container-pipeline/green-deployment-service.json -n kube-system'
           sh 'kubectl get nodes --all-namespaces'
           sh 'kubectl get deployment'
           sh 'kubectl get pod -o wide'
