@@ -16,7 +16,7 @@ click [here](https://github.com/eedygreen/Containerised-CI-CD-Pipeline-with-AWS/
 <br><br/>
 
 ## Summary
-*This clusters are two types, the Blue cluster and Green Cluster. Both clusters are up and running but only one cluster can serve at time, a failure of one will cause the other to switch. But the human intervention for successful switch to complete the deployment keep the cluster under control and can be predicted when 
+*There are types of cluster, the Blue and Green Cluster. Both clusters are up and running but only one cluster can serve at time, a failure of one will cause the other to switch. But the human intervention for successful switch to complete the deployment keep the cluster under control and can be predicted when 
 to use any of the clusters. On the other hand it causes delay and may not be suitable for streaming job.*
 
 [CI/CD Pipeline Containerized Workload on AWS using the Blue-Green Deployment](https://github.com/eedygreen/Containerised-CI-CD-Pipeline-with-AWS)
