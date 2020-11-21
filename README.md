@@ -7,13 +7,16 @@
 Click [here](https://github.com/eedygreen/Containerised-CI-CD-Pipeline-with-AWS/tree/master/Cluster-pipeline) to view the code.
 
 ## Container Cluster
-This clusters are two types, the Blue cluster and Green Cluster. Both clusters are up and running but only one cluster is serving at time, a failure of one will cause the other to switch. 
-But in the Blue-Green Deployment, there is a delay because it require human intervention for successful switch to complete.
-
 ![](https://github.com/eedygreen/Containerised-CI-CD-Pipeline-with-AWS/blob/master/Output-Results/Container-Pipeline/9.%20Waiting%20to%20Redirect%20Traffic.png)
 
 click [here](https://github.com/eedygreen/Containerised-CI-CD-Pipeline-with-AWS/tree/master/Container-pipeline) to view code.
 
+## Deploying The Grean Cluster
+![](https://github.com/eedygreen/Containerised-CI-CD-Pipeline-with-AWS/blob/master/Output-Results/Container-Pipeline/7.%20Deploy%20The%20Green-Controller.png)
 
+
+## Summary
+*This clusters are two types, the Blue cluster and Green Cluster. Both clusters are up and running but only one cluster can serve at time, a failure of one will cause the other to switch. But the human intervention for successful switch to complete the deployment keep the cluster under control and can be predicted when 
+to use any of the clusters. On the other hand it causes delay and may not be suitable for streaming job.*
 
 [CI/CD Pipeline Containerized Workload on AWS using the Blue-Green Deployment](https://github.com/eedygreen/Containerised-CI-CD-Pipeline-with-AWS)
