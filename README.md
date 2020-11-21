@@ -3,7 +3,7 @@
 **Build a Blue-Green-Deployment-CI-CD-Pipeline with Jenkins as the Automation Server**
 
 ## Cluster Pipeline
-![](https://github.com/eedygreen/Containerised-CI-CD-Pipeline-with-AWS/blob/master/Output-Results/Cluster-Pipeline/3.%20Update%20the%20kubeconfig.png)
+![](https://github.com/eedygreen/Containerised-CI-CD-Pipeline-with-AWS/blob/master/Output-Results/Cluster-Pipeline/3.%20Update%20the%20kubeconfig.png)<br> <br/> 
 Click [here](https://github.com/eedygreen/Containerised-CI-CD-Pipeline-with-AWS/tree/master/Cluster-pipeline) to view the code.
 
 ## Container Cluster
